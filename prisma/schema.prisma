@@ -6,9 +6,10 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = "file:./db.sqlite"
-    // url      = env("DATABASE_URL")
+    //provider = "sqlite"
+    //url      = "file:./db.sqlite"
+    provider = "cockroachdb"
+    url      = env("DATABASE_URL")
 }
 
 model Example {
@@ -16,7 +17,7 @@ model Example {
 }
 
 model Participation {
-   id     Int    @id @default(autoincrement())
+   id     Int    @id @default(sequence())
   name String
   date DateTime @default(now())
   distance Float
