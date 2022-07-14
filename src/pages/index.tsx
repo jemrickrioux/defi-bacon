@@ -9,6 +9,7 @@ const Home: NextPage = () => {
   const {mutateAsync: mutate} = trpc.useMutation('participations.addOne');
   const {data: p, isLoading, refetch: refetchAll} =  trpc.useQuery(["participations.getAll"]);
   const {data: totalDistance, refetch: refetchDistance} =  trpc.useQuery(["participations.totalDistance"]);
+    const {data: goalDistance} =  trpc.useQuery(["goal.totalDistance"]);
 
   const refresh = async () => {
     await refetchAll();
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
       </Head>
       <div className={"container mx-auto"}>
         <Form refresh={refresh} mutate={mutate}/>
-        <Board isLoading={isLoading} p={p} total={totalDistance}/>
+        <Board isLoading={isLoading} p={p} total={totalDistance} goal={goalDistance}/>
       </div>
     </>
   );

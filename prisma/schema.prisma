@@ -21,5 +21,9 @@ model Participation {
   name String
   date DateTime @default(now())
   distance Float
+}
 
+model Goal {
+  id     Int    @id @default(sequence())
+  distance Float
 }

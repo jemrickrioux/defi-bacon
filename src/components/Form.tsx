@@ -21,7 +21,7 @@ const Form = (props: any) => {
                 <div className={"bg-white flex flex-col mx-auto mx-20 border-2 rounded-lg space-y-4 p-10 my-20"}>
                     <h1 className={"text-4xl"}>Contribuez au défi Bacon</h1>
                     <div>
-                        <div className={"text-xl font-sans"}>Quel est votre nom</div>
+                        <div className={"text-xl font-sans"}>Quel est votre nom?</div>
                         <input name={"name"} type="text" className={""} placeholder={"Nom de la personne"}/>
                     </div>
                     <div>
