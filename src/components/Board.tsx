@@ -1,4 +1,5 @@
 import ProgressBar from "./ProgressBar";
+import PropTypes from "prop-types";
 
 const LoadedBoard = (props: any) => {
     const {p, total, goal} = props;
@@ -12,7 +13,7 @@ const LoadedBoard = (props: any) => {
             <ProgressBar total={total} goal={goal} type={"distance"} />
             {p?.map((el: any) => {
                 return (
-                    <div className="border-b border-t min-w-full" key={el.date.toISOString()}>
+                    <div className="border-b border-t min-w-full" key={el.id}>
                         <div className="flex flex-row space-x-2 items-center py-2 justify-between">
                             <div className={"flex flex-col"}>
                                 <div className={"text-xl"}>{el.name}</div>
@@ -38,4 +39,11 @@ const Board = (props: any) => {
 
         </>)
 };
+
+Board.propTypes = {
+    p: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    total: PropTypes.number.isRequired,
+    goal: PropTypes.number.isRequired
+}
 export default Board;
