@@ -19,6 +19,18 @@ export const participationsRouter = createRouter()
             );
         }
     })
+    .mutation("removeOne", {
+        input: z.number(),
+        async resolve({input, ctx}) {
+            return await ctx.prisma.participation.delete(
+                {
+                    where: {
+                        id: input
+                    }
+                }
+            );
+        }
+    })
   .query("getAll", {
     async resolve({ ctx }) {
       return await ctx.prisma.participation.findMany();
