@@ -25,7 +25,7 @@ const Home: NextPage = () => {
       </Head>
       <div className={"container mx-auto"}>
         <Form refresh={refresh} mutate={mutate}/>
-        <Board isLoading={isLoading} p={p} total={totalDistance} goal={goalDistance}/>
+        <Board isLoading={isLoading} p={p? p : []} total={totalDistance? totalDistance: 0} goal={goalDistance? goalDistance : 0}/>
       </div>
     </>
   );
