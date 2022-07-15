@@ -36,7 +36,7 @@ const Home: NextPage = () => {
                     <div className={"w-max h-max hover:shadow py-2 px-4 rounded-lg cursor-pointer md:text-xl bg-green-800 text-white uppercase font-bold"}><a target={"__blank__"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Donner à la cause</a></div>
                     <div  className={"w-max h-max hover:shadow py-2 px-4 rounded-lg cursor-pointer md:text-xl bg-white text-black uppercase font-bold"}><Link href={"/app"}>Contribuer à la course</Link></div>
                 </div>
-                <ProgressBar total={23010} goal={32000}/>
+                <ProgressBar total={23010} goal={32000} type={"currency"}/>
             </div>
         </div>
       </div>

@@ -1,9 +1,4 @@
-import { trpc } from "../utils/trpc";
-import {useEffect, useState} from "react";
 import ProgressBar from "./ProgressBar";
-
-
-const IsLoading = () => <div>Loading...</div>
 
 const LoadedBoard = (props: any) => {
     const {p, total, goal} = props;
@@ -14,7 +9,7 @@ const LoadedBoard = (props: any) => {
     return (
         <>
             <div className={"text-lg my-10"}>Les participants ont courus un total de <span className={"font-bold"}> {total} KM</span> sur un objectif de<span className={"font-bold"}> {goal} KM</span></div>
-            <ProgressBar total={total} goal={goal} />
+            <ProgressBar total={total} goal={goal} type={"distance"} />
             {p?.map((el: any) => {
                 return (
                     <div className="border-b border-t min-w-full" key={el.date.toISOString()}>
