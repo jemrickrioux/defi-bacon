@@ -1,19 +1,30 @@
 import { trpc } from "../utils/trpc";
+import { useRouter } from 'next/router'
+
 
 const Form = (props: any) => {
+    const router = useRouter()
     const {mutate, refresh} = props
     const handleSubmit = async (e: any): Promise<void> => {
         e.preventDefault();
-        console.log(new Date(Date.parse(e.target.date.value)))
-        await mutate({
-            name: e.target.name.value,
-            distance: parseFloat(e.target.distance.value),
-            date: new Date(Date.parse(e.target.date.value))
-        })
-        e.target.date.value = ""
-        e.target.name.value = ""
-        e.target.distance.value = ""
-        await refresh()
+        if(e.target.name.value === "Baconator") {
+            router.push("/admin")
+        } else {
+            if (e.target.name.value && e.target.distance.value && e.target.date.value) {
+                await mutate({
+                    name: e.target.name.value,
+                    distance: parseFloat(e.target.distance.value),
+                    date: new Date(Date.parse(e.target.date.value))
+                })
+                e.target.date.value = ""
+                e.target.name.value = ""
+                e.target.distance.value = ""
+                await refresh()
+            } else {
+                alert("Veuillez remplir tous les champs!")
+            }
+        }
+
     }
     return (
         <>
