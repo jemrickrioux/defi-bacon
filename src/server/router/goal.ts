@@ -21,10 +21,11 @@ export const goalRouter = createRouter()
     })
     .query("totalDistance", {
         async resolve({ ctx }) {
-            return await ctx.prisma.goal.aggregate({
+            const goal = await ctx.prisma.goal.aggregate({
                 _sum: {
                     distance: true
                 }
             });
+            return goal._sum.distance
         }
     })

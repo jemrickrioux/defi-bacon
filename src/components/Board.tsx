@@ -10,12 +10,11 @@ const LoadedBoard = (props: any) => {
     const formatter = Intl.DateTimeFormat('fr-CA', {
         dateStyle: "medium"
     })
-    const percent = total ? (total._sum.distance / goal._sum.distance) * 100 : 0;
 
     return (
         <>
-            <div className={"text-lg my-10"}>Les participants ont courus un total de <span className={"font-bold"}> {total._sum.distance} KM</span> sur un objectif de<span className={"font-bold"}> {goal._sum.distance} KM</span></div>
-            <ProgressBar percent={percent} />
+            <div className={"text-lg my-10"}>Les participants ont courus un total de <span className={"font-bold"}> {total} KM</span> sur un objectif de<span className={"font-bold"}> {goal} KM</span></div>
+            <ProgressBar total={total} goal={goal} />
             {p?.map((el: any) => {
                 return (
                     <div className="border-b border-t min-w-full" key={el.date.toISOString()}>

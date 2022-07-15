@@ -26,10 +26,11 @@ export const participationsRouter = createRouter()
   })
     .query("totalDistance", {
         async resolve({ ctx }) {
-            return await ctx.prisma.participation.aggregate({
+            const total =  await ctx.prisma.participation.aggregate({
                 _sum: {
                     distance: true
                 }
             });
+            return total._sum.distance
         }
     })

@@ -29,7 +29,7 @@ const Admin: NextPage = () => {
             <div className={"container mx-auto min-h-screen my-10"}>
                 <div className={"border-2 rounded-lg py-10 px-6 bg-white flex flex-col space-y-2"}>
                     <h2 className={"text-4xl font-sans"}>Admin</h2>
-                    <div>Total distance is: {goalDistance ? goalDistance._sum.distance: ""}</div>
+                    <div>Total distance is: {goalDistance ? goalDistance: ""}</div>
                     <form onSubmit={handleSubmit} className={"space-y-2"}>
                         {isLoading? (<p>Loading...</p>) : (<input className={"w-full"} type={"text"} name={"totalDistance"} placeholder={"Entrer la nouvelle distance"}/>)}
                         <input type={"submit"} className={"bg-green-200 w-max px-3 py-1 border border-white rounded-lg cursor-pointer hover:border-gray-300 hover:shadow"}/>
