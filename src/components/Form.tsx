@@ -18,7 +18,7 @@ const Form = (props: any) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <div className={"bg-white flex flex-col mx-auto mx-20 border-2 rounded-lg space-y-4 p-10 my-20"}>
+                <div className={"bg-white flex flex-col mx-auto md:mx-20 mx-5 border-2 rounded-lg space-y-4 p-10 my-20"}>
                     <h1 className={"text-4xl"}>Contribuez au défi Bacon</h1>
                     <div>
                         <div className={"text-xl font-sans"}>Quel est votre nom?</div>
