@@ -34,6 +34,27 @@ export const participantsRouter = createRouter()
             });
         }
     })
+    .query("leaderboard", {
+        async resolve({ctx}) {
+           const participation =  await ctx.prisma.participation.findMany({
+                include: {
+                    participant: true
+                },
+                orderBy: {
+                    distance: "desc"
+                }
+            });
+            let data = [] as any[];
+            participation.map((l:any)=> {
+                if (data[l.participant.id]) {
+                    data[l.participant.id].distance += l.distance;
+                } else {
+                    data[l.participant.id] = l
+                }
+        })
+            const res = Object.values(data).sort((a:any, b:any)=> {return b.distance - a.distance});
+            return res
+    }})
     .query("totalDistance", {
         input: z.number(),
 

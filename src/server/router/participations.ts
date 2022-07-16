@@ -61,6 +61,9 @@ export const participationsRouter = createRouter()
       return await ctx.prisma.participation.findMany({
           include: {
               participant: true
+          },
+          orderBy: {
+              date: "desc"
           }
       });
     },
