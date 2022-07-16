@@ -12,18 +12,24 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
-}
-
 model Participation {
    id     Int    @id @default(sequence())
-  name String
   date DateTime @default(now())
   distance Float
+  participant Participant @relation(fields: [participantId], references: [id])
+  participantId Int
+}
+
+model Participant {
+    id Int @id @default(sequence())
+    name String @unique
+    participations Participation[]
 }
 
 model Goal {
   id     Int    @id @default(sequence())
   distance Float
-}
+  divider Int
+  goal Float
+  current Float
+ }

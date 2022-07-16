@@ -12,13 +12,38 @@ export const participationsRouter = createRouter()
     .mutation("addOne", {
         input: addParticipation,
         async resolve({input, ctx}) {
+            const participant = await ctx.prisma.participant.findUnique({
+                where: {
+                    name: input.name
+                }
+            })
+            let id = 0;
+            if (participant === null) {
+                const res = await ctx.prisma.participant.create({
+                    data: {
+                        name: input.name
+                    }
+                })
+                id = res.id
+            } else {
+                id = participant.id
+            }
             return await ctx.prisma.participation.create(
                 {
-                    data: input
+                    data: {
+                        distance: input.distance,
+                        date: input.date,
+                        participant: {
+                            connect: {
+                                id
+                            }
+                        }
+                    }
                 }
-            );
+            )
         }
-    })
+        })
+
     .mutation("removeOne", {
         input: z.number(),
         async resolve({input, ctx}) {
@@ -33,9 +58,28 @@ export const participationsRouter = createRouter()
     })
   .query("getAll", {
     async resolve({ ctx }) {
-      return await ctx.prisma.participation.findMany();
+      return await ctx.prisma.participation.findMany({
+          include: {
+              participant: true
+          }
+      });
     },
   })
+    .query("byParticipantId", {
+        input: z.number(),
+        async resolve({input, ctx}) {
+            return await ctx.prisma.participation.findMany({
+                include: {
+                    participant: true
+                },
+                where: {
+                    participant: {
+                        id: input
+                    }
+                }
+            });
+        }
+    })
     .query("totalDistance", {
         async resolve({ ctx }) {
             const total =  await ctx.prisma.participation.aggregate({

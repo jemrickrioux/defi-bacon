@@ -13,7 +13,7 @@ export const goalRouter = createRouter()
                         id: 1
                     },
                     data: {
-                        distance: input
+                        distance: input,
                     }
                 }
             );
@@ -21,11 +21,12 @@ export const goalRouter = createRouter()
     })
     .query("totalDistance", {
         async resolve({ ctx }) {
-            const goal = await ctx.prisma.goal.aggregate({
-                _sum: {
-                    distance: true
+            const goal = await ctx.prisma.goal.findUnique({
+                where: {
+                    id: 1
                 }
             });
-            return goal._sum.distance
+            console.log(goal)
+            return goal?.distance
         }
     })
