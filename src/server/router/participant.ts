@@ -1,6 +1,5 @@
-import { createRouter } from "./context";
-import { z } from "zod";
-
+import {createRouter} from "./context";
+import {z} from "zod";
 
 
 export const participantsRouter = createRouter()
@@ -52,8 +51,9 @@ export const participantsRouter = createRouter()
                     data[l.participant.id] = l
                 }
         })
-            const res = Object.values(data).sort((a:any, b:any)=> {return b.distance - a.distance});
-            return res
+            return Object.values(data).sort((a: any, b: any) => {
+                return b.distance - a.distance
+            })
     }})
     .query("totalDistance", {
         input: z.number(),
