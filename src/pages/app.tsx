@@ -5,10 +5,12 @@ import Form from "../components/Form";
 import ProgressBar from "../components/ProgressBar";
 import Link from "next/link";
 import {useState} from "react";
-import {ChartBarIcon, HomeIcon, PlusIcon} from '@heroicons/react/solid'
-import {router} from "next/client";
+import { HomeIcon, PlusIcon} from '@heroicons/react/solid'
+import {useRouter} from "next/router";
+
 
 const App: NextPage = () => {
+    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false);
     const formatter = Intl.DateTimeFormat('fr-CA', {
         dateStyle: "medium"
