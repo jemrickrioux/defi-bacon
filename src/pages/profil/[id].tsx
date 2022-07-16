@@ -17,7 +17,10 @@ const Home: NextPage = () => {
     const {data: goalDistance} =  trpc.useQuery(["goal.totalDistance"]);
     const {data:profile} = trpc.useQuery(["participants.getOne", parsedId]);
     const {data:profileDistance} = trpc.useQuery(["participants.totalDistance", parsedId]);
-
+    const formatter = Intl.DateTimeFormat('fr-CA', {
+        dateStyle: "medium",
+        timeZone:"America/Montreal"
+    })
     const refresh = async () => {
         await refetchAll();
         await refetchDistance();
@@ -37,13 +40,28 @@ const Home: NextPage = () => {
                     <ArrowLeftIcon onClick={()=>router.push("/app")} className={"w-8 md:w-12 text-black"}/>
                 </div>
                 <div className={"md:text-8xl text-5xl mb-10 text-dark font-poppins uppercase font-bold"}>{profile?.name}</div>
-                <div className={"md:text-5xl text-4xl font-rubik text-dark"}>Il a couru {profileDistance} KM pour la cause... {`c'est`}  {percent.toFixed(2)} % de {`l'objectif.`}</div>
+                <div className={"md:text-5xl text-4xl font-rubik text-dark"}>a couru {profileDistance} KM pour la cause... {`c'est`}  {percent.toFixed(2)} % de {`l'objectif.`}</div>
+                <div className={"border-b-2 border-dark my-10"}></div>
+                <div className={"md:text-6xl text-4xl md:mb-14 mb-8 text-dark uppercase font-bold font-poppins"}>Dernières courses</div>
+                {profile?.participations.slice(0,3).map((el: any) => {
+                    return (
+                        <div className="my-1" key={el.id}>
+                            <div className="flex flex-row space-x-2 items-center md:py-6 py-4 md:px-14 px-6 justify-between bg-primary rounded-2xl shadow">
+                                <div className={"flex flex-col"}>
+                                    <div className={"md:text-4xl text-2xl text-white font-poppins"}>{profile.name }</div>
+                                    <div className={"md:text-2xl text-lg text-dark text-dark mt-2"}>{formatter.format(el.date)}</div>
+                                </div>
+                                <div className={"md:text-5xl text-xl text-white w-max flex md:self-center self-start"}>{el.distance}KM</div>
+                            </div>
+                        </div>
+                    )})}
                 <div className={"border-b-2 border-dark my-10"}></div>
                 <div className={"md:text-6xl text-4xl font-poppins"}>Tu aimerais <span className={"font-bold"}>faire ta part</span> ?</div>
                 <div className={"flex flex-row my-8 space-x-2 md:space-x-4"}>
                     <div className={"w-max h-max hover:shadow py-4 px-4 rounded-lg cursor-pointer md:text-2xl text-sm  bg-primary text-white uppercase font-bold font-poppins"}><a target={"__blank__"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Faire un don</a></div>
                     <div  className={"w-max h-max hover:shadow py-4 px-4 rounded-lg cursor-pointer md:text-2xl text-sm bg-dark text-white uppercase font-bold font-poppins"}><Link href={"/app"}>Faire un bout</Link></div>
                 </div>
+
             </div>
         </>
     );
