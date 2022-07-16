@@ -28,7 +28,7 @@ const Home: NextPage = () => {
       </Head>
       <div className={"container mx-auto overflow-hidden"}>
         <div className={"grid"}>
-            <div className={"flex flex-col md:my-20 my-4 mx-6"}>
+            <div className={"flex flex-col md:my-20 my-4 md:mx-20 mx-6"}>
                 <div className="relative flex py-5 items-center md:-mb-10 -mb-6">
                     <span className="flex-shrink mr-4 md:text-9xl text-7xl text-primary uppercase font-bold font-poppins">Le Défi</span>
                     <div className="flex-grow border-t-2 border-primary"></div>

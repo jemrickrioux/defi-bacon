@@ -2,6 +2,7 @@ import { trpc } from "../utils/trpc";
 import { useRouter } from 'next/router'
 import {useState} from "react";
 import {name} from "next/dist/telemetry/ci-info";
+import { XIcon } from '@heroicons/react/solid'
 
 
 const Form = (props: any) => {
@@ -55,7 +56,7 @@ const Form = (props: any) => {
                 <div className={"bg-primary flex flex-col justify-around mx-auto md:mx-20 mx-5 rounded-lg space-y-4 px-24 py-20 md:my-20 max-w-4xl"}>
                     <div className={"flex flex-row justify-between"}>
                         <div className={"md:text-5xl text-3xl text-white uppercase font-bold font-poppins"}>Enregistrez une course</div>
-                        <div onClick={toggleModal} className={"text-4xl cursor-pointer self-center text-dark font-bold"}>X</div>
+                        <XIcon onClick={toggleModal}  className={"w-10 ml-5 cursor-pointer self-center"}/>
                     </div>
 
                     <div className={"ml-3"}>
