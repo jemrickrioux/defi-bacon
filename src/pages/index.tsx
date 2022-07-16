@@ -38,12 +38,12 @@ const Home: NextPage = () => {
                 <h2 className={"md:text-4xl text-xl font-poppins"}>32 000$ pour <span className={"font-bold"}>32 années de vie</span></h2>
                 <p className={"md:text-2xl text-lg mt-4 max-w-xl mt-12"}>À chaque tranche de 10$ nous allons courir 1KM à la mémoire de Maxime Papillon.</p>
                 <div className={"flex md:flex-row flex-col my-14 md:space-x-3 md:space-y-0 space-y-2"}>
-                    <div className={"w-max h-max hover:shadow py-6 px-6 rounded-full cursor-pointer md:text-2xl  bg-primary text-white uppercase font-bold font-rubik"}><a target={"__blank__"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Donner à la cause</a></div>
-                    <div  className={"w-max h-max hover:shadow py-6 px-6 rounded-full cursor-pointer md:text-2xl bg-dark text-white uppercase font-bold font-rubik"}><Link href={"/app"}>Contribuer à la course</Link></div>
+                    <div className={"w-max h-max hover:shadow py-4 px-6 rounded-lg cursor-pointer md:text-2xl  bg-primary text-white uppercase font-bold font-rubik"}><a target={"__blank__"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Donner à la cause</a></div>
+                    <div  className={"w-max h-max hover:shadow py-4 px-6 rounded-lg cursor-pointer md:text-2xl bg-dark text-white uppercase font-bold font-rubik"}><Link href={"/app"}>Contribuer à la course</Link></div>
                 </div>
-                <div className={"flex flex-col space-y-2"}>
+                <div className={"flex flex-col space-y-2 max-w-4xl"}>
                     <h3 className={"md:text-5xl text-3xl mb-8 font-rubik text-dark"}>À quelques pas <span className={"font-bold text-primary"}>de notre objectif</span></h3>
-                    <ProgressBar total={23010} goal={32000} type={"currency"}/>
+                    <ProgressBar total={23060} goal={32000} type={"currency"}/>
                 </div>
 
             </div>
