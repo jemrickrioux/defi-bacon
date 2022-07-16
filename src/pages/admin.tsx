@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
 import Form from "../components/Form";
-import Board from "../components/Board";
 import ParticipantsList from "../components/ParticipantsList";
+import Link from "next/link";
 
 
 const Admin: NextPage = () => {
@@ -31,13 +31,14 @@ const Admin: NextPage = () => {
             </Head>
             <div className={"container mx-auto min-h-screen my-10 "}>
                 <div className={"border-2 rounded-lg mx-auto md:mx-20 mx-5 rounded-lg p-10 my-20 px-6 bg-white flex flex-col space-y-2"}>
-                    <h2 className={"text-4xl font-sans"}>Admin</h2>
+                    <h2 className={"text-4xl font-rubik"}>Admin</h2>
                     <div>La distance totale est de : {goalDistance ? goalDistance: ""} KM</div>
-                    <form onSubmit={handleSubmit} className={"space-y-2"}>
+                    <form onSubmit={handleSubmit} className={"space-y-2 mb-10"}>
                         {isGoalLoading? (<p>Loading...</p>) : (<input className={"w-full"} type={"text"} name={"totalDistance"} placeholder={"Entrer la nouvelle distance"}/>)}
-                        <input type={"submit"} className={"bg-green-200 w-max px-3 py-1 border border-white rounded-lg cursor-pointer hover:border-gray-300 hover:shadow"}/>
+                        <input type={"submit"} className={"w-max h-max hover:shadow py-4 px-4  rounded-lg cursor-pointer md:text-xl bg-dark text-white uppercase font-bold font-rubik"}/>
+
                     </form>
-                    <div>
+                    <div className={""}>
                     <ParticipantsList p={p? p : []} isLoading={isLoading} total={totalDistance? totalDistance: 0} goal={goalDistance? goalDistance : 0}/>
                     </div>
                 </div>

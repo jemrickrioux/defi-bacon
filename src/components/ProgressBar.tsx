@@ -9,13 +9,18 @@ const ProgressBar = (props: any) => {
         style: "currency",
         currency: "CAD",
     })
-    const text = type === "currency" ? `${formatter.format(total)} de l'objectif de ${formatter.format(goal)}` : `${total} KM / ${goal} KM`;
+    const objectif = type === "currency" ? `${formatter.format(goal)}` : `${goal} KM`;
+    const current = type === "currency" ? `${formatter.format(total)}` : `${total} KM`;
+    console.log(percent)
     return(
         <>
-            <div className={"text-xl"}>{text}</div>
-            <div className="h-8 relative max-w-xl rounded-lg overflow-hidden mb-10 border-2 border-black">
-                <div className="w-full h-full bg-gray-100 absolute"></div>
-                <div style={{ width: `${percent}%`}} className="h-full bg-green-700 absolute"></div>
+            <div className="h-10 md:h-12 relative max-w-4xl rounded-full overflow-hidden mb-20">
+                <div className="w-full h-full bg-primary absolute">
+                    <div className={"flex md:text-3xl text-xl text-white flex-row justify-end items-center pr-10 w-full h-full"}>{objectif}</div>
+                </div>
+                <div style={ percent > 40 ? { width: `${percent}%`} : {width: "40%" }} className="h-full min-w-sm bg-white shadow-xl absolute rounded-full">
+                    <div className={"flex md:text-3xl text-xl flex-row justify-end items-center pr-10 w-full h-full text-dark"}>{current}</div>
+                </div>
             </div>
 
         </>)

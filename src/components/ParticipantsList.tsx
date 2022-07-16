@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import {trpc} from "../utils/trpc";
+import Link from "next/link";
 
 
 const ParticipantsList = (props: any) => {
@@ -21,15 +22,15 @@ const ParticipantsList = (props: any) => {
                 <>
                     {p?.map((el: any) => {
                         return (
-                            <div className="border-b border-t min-w-full" key={el.id}>
-                                <div className="flex flex-row space-x-2 items-center py-2 justify-between">
+                            <div className=" my-1" key={el.id}>
+                                <div className="flex flex-row space-x-2 items-center py-6 px-14 justify-between bg-primary rounded-2xl shadow">
                                     <div className={"flex flex-col"}>
-                                        <div className={"text-xl"}>{el.name}</div>
-                                        <div className={"text-md"}>{formatter.format(el.date)}</div>
+                                        <div className={"text-4xl text-white font-poppins"}><Link href={`/profil/${el.participant.id}`}>{el.participant.name}</Link></div>
+                                        <div className={"text-2xl text-dark text-dark mt-2"}>{formatter.format(el.date)}</div>
                                     </div>
-                                    <div className={"flex flex-row space-x-3 items-center"}>
-                                        <div className={"text-xl font-bold"}>{el.distance} KM</div>
-                                        <div onClick={()=>handleRemove(el.id)} className={"cursor-pointer text-2xl font-bold"}>X</div>
+                                    <div className={"flex flex-row justify-center items-center space-x-10"}>
+                                    <div className={"text-5xl text-white font-bold"}>{el.distance} KM</div>
+                                    <div onClick={()=>handleRemove(el.id)} className={"cursor-pointer text-white text-4xl font-bold"}>X</div>
                                     </div>
                                 </div>
                             </div>
