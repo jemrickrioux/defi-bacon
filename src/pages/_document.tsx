@@ -15,7 +15,7 @@ class MyDocument extends Document {
                         rel="stylesheet"
                     />
                 </Head>
-                <body className={"font-rubik"}>
+                <body className={"font-rubik bg-hero-bank-note bg-secondary"}>
                 <Main />
                 <NextScript />
                 </body>
