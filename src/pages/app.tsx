@@ -17,9 +17,11 @@ const App: NextPage = () => {
         timeZone:"America/Montreal"
     })
 
+
     const toggleModal = () => {
         isOpen ? setIsOpen(false) : setIsOpen(true);
     }
+    const {data: current} =  trpc.useQuery(["goal.current"]);
   const {mutateAsync: mutate} = trpc.useMutation('participations.addOne');
   const {data: p, isLoading, refetch: refetchAll} =  trpc.useQuery(["participations.getAll"]);
     const {data: l, isLoading: lbLoading , refetch: refetchLeaderboard} =  trpc.useQuery(["participants.leaderboard"]);
@@ -52,7 +54,7 @@ const App: NextPage = () => {
               <div className={"md:text-6xl text-2xl mb-14 text-white uppercase font-bold font-poppins"}>Résultats</div>
               <div onClick={toggleModal} className={"cursor-pointer md:text-xl text-sm mb-14 self-center hover:shadow hover:text-white hover:bg-primary md:self-center w-max h-max text-dark uppercase bg-secondary md:py-4 py-2 px-4 rounded-lg  font-bold font-poppins flex items-center"}><PlusIcon className={"w-6"}/> <span className={"ml-2"}>Course</span></div>
           </div>
-          <ProgressBar total={total ? total :0} goal={goal? goal : 0} type={"distance"} />
+          <ProgressBar current={total ? total  :0} goal={current? current / 10 : 0} type={"distance"} />
               <div className={`border-b-2 -mt-5 mb-14 `}></div>
               <div className={"md:text-6xl text-4xl md:mb-14 mb-8 text-white uppercase font-bold font-poppins"}>Meilleurs coureurs</div>
               {l?.map((el: any) => {

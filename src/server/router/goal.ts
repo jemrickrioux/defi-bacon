@@ -30,3 +30,13 @@ export const goalRouter = createRouter()
             return goal?.distance
         }
     })
+    .query("current", {
+        async resolve({ ctx }) {
+            const goal = await ctx.prisma.goal.findFirst({
+                where: {
+                    id: 1
+                }
+            });
+            return goal?.current
+        }
+    })

@@ -22,9 +22,10 @@ const handler = async (event, context) => {
                 id: 1
             },
             data: {
-                distance: parseFloat(amount/10)
+                current: parseFloat(amount)
             }
         })
+        console.log("updated", update)
         return { statusCode: 200 }
     } else {
         return { statusCode: 400 }

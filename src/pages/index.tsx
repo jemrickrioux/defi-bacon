@@ -13,6 +13,7 @@ const Home: NextPage = () => {
   const {data: p, isLoading, refetch: refetchAll} =  trpc.useQuery(["participations.getAll"]);
   const {data: totalDistance, refetch: refetchDistance} =  trpc.useQuery(["participations.totalDistance"]);
   const {data: goalDistance} =  trpc.useQuery(["goal.totalDistance"]);
+    const {data: current} =  trpc.useQuery(["goal.current"]);
 
   const refresh = async () => {
     await refetchAll();
@@ -43,7 +44,7 @@ const Home: NextPage = () => {
                 </div>
                 <div className={"flex flex-col space-y-2 max-w-4xl"}>
                     <h3 className={"md:text-5xl text-3xl mb-8 font-rubik text-dark"}>À quelques pas <span className={"font-bold text-primary"}>de notre objectif</span></h3>
-                    <ProgressBar total={23060} goal={32000} type={"currency"}/>
+                    <ProgressBar current={current ? current : 0} goal={32000} type={"currency"}/>
                 </div>
 
             </div>
