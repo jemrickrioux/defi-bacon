@@ -56,14 +56,18 @@ const App: NextPage = () => {
           </div>
           <ProgressBar current={total ? total  :0} goal={current? current / 10 : 0} type={"distance"} />
               <div className={`border-b-2 -mt-5 mb-14 `}></div>
-              <div className={"md:text-6xl text-4xl md:mb-14 mb-8 text-white uppercase font-bold font-poppins"}>Meilleurs coureurs</div>
-              {l?.map((el: any) => {
+              <div className={"md:text-6xl text-4xl md:mb-14 mb-8 text-white uppercase font-bold font-poppins"}>Top 3</div>
+              {l?.slice(0,3).map((el: any, index: number) => {
                   return (
                       <div className="my-1" key={el.id}>
                           <div className="flex flex-row space-x-2 items-center md:py-6 py-4 md:px-14 px-6 justify-between bg-primary rounded-2xl shadow">
-                              <div className={"flex flex-col"}>
-                                  <div className={"md:text-4xl text-2xl text-white font-poppins underline hover:text-dark hover:animate-pulse underline-offset-1 "}><Link href={`/profil/${el.participant.id}`}>{el.participant.name + " >"}</Link></div>
+                              <div className={"flex font-bold text-white text-4xl font-bold text-5xl"}>
+                                  {index +1}
+                                  <div className={"flex flex-col ml-6 justify-center"}>
+                                      <div className={"md:text-4xl text-2xl text-white font-poppins underline hover:text-dark hover:animate-pulse underline-offset-1 "}><Link href={`/profil/${el.participant.id}`}>{el.participant.name + " >"}</Link></div>
+                                  </div>
                               </div>
+
                               <div className={"md:text-5xl text-xl text-white w-max flex md:self-center self-start"}>{el.distance}KM</div>
                           </div>
                       </div>
