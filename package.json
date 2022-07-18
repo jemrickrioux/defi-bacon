@@ -19,7 +19,10 @@
     "@trpc/server": "^9.26.0",
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
+    "fancy-canvas": "^2.0.2",
+    "lightweight-charts": "^3.8.0",
     "next": "12.2.0",
+    "next-transpile-modules": "^9.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "^3.39.1",
@@ -34,9 +37,11 @@
     "eslint": "8.18.0",
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",
+    "prettier": "^2.7.1",
     "prisma": "^4.0.0",
     "tailwind-heropatterns": "^0.0.8",
     "tailwindcss": "^3.1.6",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "use-resize-observer": "^9.0.2"
   }
 }
