@@ -1,24 +1,25 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
-import Form from "../components/Form";
-import Link from 'next/link'
-import {goalRouter} from "../server/router/goal";
-import ProgressBar from "../components/ProgressBar";
-
-
+import Header from "../components/utils/header";
 
 const Home: NextPage = () => {
-  const {mutateAsync: mutate} = trpc.useMutation('participations.addOne');
-  const {data: p, isLoading, refetch: refetchAll} =  trpc.useQuery(["participations.getAll"]);
-  const {data: totalDistance, refetch: refetchDistance} =  trpc.useQuery(["participations.totalDistance"]);
-  const {data: goalDistance} =  trpc.useQuery(["goal.totalDistance"]);
-    const {data: current} =  trpc.useQuery(["goal.current"]);
+  const { mutateAsync: mutate } = trpc.useMutation("participations.addOne");
+  const {
+    data: p,
+    isLoading,
+    refetch: refetchAll,
+  } = trpc.useQuery(["participations.getAll"]);
+  const { data: totalDistance, refetch: refetchDistance } = trpc.useQuery([
+    "participations.totalDistance",
+  ]);
+  const { data: goalDistance } = trpc.useQuery(["goal.totalDistance"]);
+  const { data: current } = trpc.useQuery(["goal.current"]);
 
   const refresh = async () => {
     await refetchAll();
     await refetchDistance();
-  }
+  };
 
   return (
     <>
@@ -28,27 +29,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={"container mx-auto overflow-hidden"}>
-        <div className={"grid"}>
-            <div className={"flex flex-col md:my-20 my-4 md:mx-20 mx-6"}>
-                <div className="relative flex py-5 items-center md:-mb-10 -mb-6">
-                    <span className="flex-shrink mr-4 md:text-9xl text-7xl text-primary uppercase font-bold font-poppins">Le Défi</span>
-                    <div className="flex-grow border-t-2 border-primary"></div>
-                </div>
-                <h1 className={"md:text-9xl text-7xl mb-2  uppercase text-white font-bold font-poppins"}>Bacon</h1>
-
-                <h2 className={"md:text-4xl text-xl font-poppins"}>32 000$ pour <span className={"font-bold"}>32 années de vie</span></h2>
-                <p className={"md:text-2xl text-lg mt-4 max-w-xl mt-12"}>À chaque tranche de 10$ nous allons courir 1KM à la mémoire de Maxime Papillon.</p>
-                <div className={"flex md:flex-row flex-col my-14 md:space-x-3 md:space-y-0 space-y-2"}>
-                    <div className={"w-max h-max hover:shadow py-4 px-6 rounded-lg cursor-pointer md:text-2xl  bg-primary text-white uppercase font-bold font-rubik"}><a target={"__blank__"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Donner à la cause</a></div>
-                    <div  className={"w-max h-max hover:shadow py-4 px-6 rounded-lg cursor-pointer md:text-2xl bg-dark text-white uppercase font-bold font-rubik"}><Link href={"/app"}>Contribuer à la course</Link></div>
-                </div>
-                <div className={"flex flex-col space-y-2 max-w-4xl"}>
-                    <h3 className={"md:text-5xl text-3xl mb-8 font-rubik text-dark"}>À quelques pas <span className={"font-bold text-primary"}>de notre objectif</span></h3>
-                    <ProgressBar current={current ? current : 0} goal={32000} type={"currency"}/>
-                </div>
-
-            </div>
-        </div>
+        <Header current={current} />
       </div>
     </>
   );
