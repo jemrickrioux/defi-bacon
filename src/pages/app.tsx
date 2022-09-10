@@ -109,9 +109,9 @@ const App: NextPage = () => {
               "md:text-6xl text-4xl md:mb-14 mb-8 text-white uppercase font-bold font-poppins"
             }
           >
-            Top 3
+            Top 10
           </div>
-          {l?.slice(0, 3).map((el: any, index: number) => {
+          {l?.slice(0, 10).map((el: any, index: number) => {
             return (
               <div className="my-1" key={el.id}>
                 <div className="flex flex-row space-x-2 items-center md:py-6 py-4 md:px-14 px-6 justify-between bg-primary rounded-2xl shadow">
@@ -139,7 +139,7 @@ const App: NextPage = () => {
                       "md:text-5xl text-xl text-white w-max flex md:self-center self-start"
                     }
                   >
-                    {el.distance}KM
+                    {el.distance.toFixed(2)}KM
                   </div>
                 </div>
               </div>
