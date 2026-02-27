@@ -27,9 +27,8 @@ const ProgressBar = (props: any) => {
           </div>
         </div>
         <div
-          className={`${
-            percent > 20 ? "w-" + percent + "%" : "w-max"
-          } h-full bg-white shadow-xl absolute rounded-full`}
+          className={"h-full bg-white shadow-xl absolute rounded-full"}
+          style={{ width: percent > 20 ? `${percent}%` : "auto" }}
         >
           <div
             className={

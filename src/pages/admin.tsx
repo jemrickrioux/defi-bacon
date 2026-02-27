@@ -19,6 +19,8 @@ const Admin: NextPage = () => {
   const { mutate, isLoading: isGoalLoading } = trpc.useMutation("goal.update", {
     onSuccess: () => {
       utils.invalidateQueries(["goal.current"]);
+      utils.invalidateQueries(["goal.totalDistance"]);
+      refetch();
     },
   });
   const handleSubmit = async (e: any) => {

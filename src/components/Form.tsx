@@ -7,6 +7,8 @@ const Form = (props: any) => {
   const router = useRouter();
   const [nameValue, setNameValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const { mutate, refresh, toggleModal } = props;
   const searchResult = trpc.useQuery(["participants.search", nameValue], {
     enabled: nameValue.length > 0,
@@ -23,29 +25,42 @@ const Form = (props: any) => {
 
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
+    setError("");
     if (e.target.name.value === "Baconator") {
       router.push("/admin");
-    } else {
-      if (
-        e.target.name.value &&
-        e.target.distance.value &&
-        e.target.date.value
-      ) {
-        const d = new Date(e.target.date.value);
-        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-        await mutate({
-          name: e.target.name.value,
-          distance: parseFloat(e.target.distance.value),
-          date: d,
-        });
-        e.target.date.value = "";
-        e.target.name.value = "";
-        e.target.distance.value = "";
-        await refresh();
-        toggleModal();
-      } else {
-        alert("Veuillez remplir tous les champs!");
-      }
+      return;
+    }
+    const name = e.target.name.value.trim();
+    const distanceStr = e.target.distance.value;
+    const dateStr = e.target.date.value;
+    if (!name || !distanceStr || !dateStr) {
+      setError("Veuillez remplir tous les champs.");
+      return;
+    }
+    const distance = parseFloat(distanceStr);
+    if (isNaN(distance) || distance <= 0) {
+      setError("La distance doit être un nombre supérieur à 0.");
+      return;
+    }
+    if (distance > 1000) {
+      setError("La distance semble trop grande (max 1000 KM).");
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const d = new Date(dateStr);
+      d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+      await mutate({ name, distance, date: d });
+      e.target.date.value = "";
+      e.target.name.value = "";
+      e.target.distance.value = "";
+      setNameValue("");
+      await refresh();
+      toggleModal();
+    } catch {
+      setError("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -136,11 +151,18 @@ const Form = (props: any) => {
               />
             </div>
           </div>
+          {error && (
+            <div className={"ml-3 text-red-600 font-poppins text-lg"}>
+              {error}
+            </div>
+          )}
           <input
             className={
-              "bg-white ml-3 px-8 rounded-lg py-4 px-6 text-2xl w-max font-poppins font-bold uppercase"
+              `ml-3 px-8 rounded-lg py-4 px-6 text-2xl w-max font-poppins font-bold uppercase ${isSubmitting ? "bg-gray-300 cursor-not-allowed" : "bg-white cursor-pointer"}`
             }
             type={"submit"}
+            disabled={isSubmitting}
+            value={isSubmitting ? "Envoi..." : "Envoyer"}
           />
         </div>
       </form>

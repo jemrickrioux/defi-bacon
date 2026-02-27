@@ -36,9 +36,7 @@ const App: NextPage = () => {
   ]);
   const { data: goal } = trpc.useQuery(["goal.totalDistance"]);
   const refresh = async () => {
-    await refetchAll();
-    await refetchDistance();
-    await refetchLeaderboard();
+    await Promise.all([refetchAll(), refetchDistance(), refetchLeaderboard()]);
   };
   return (
     <>
@@ -110,6 +108,12 @@ const App: NextPage = () => {
           >
             Top 10
           </div>
+          {lbLoading && (
+            <div className={"text-white text-2xl font-poppins"}>Chargement...</div>
+          )}
+          {!lbLoading && (!l || l.length === 0) && (
+            <div className={"text-white text-2xl font-poppins opacity-60"}>Aucun participant pour le moment.</div>
+          )}
           {l?.slice(0, 10).map((el: any, index: number) => {
             return (
               <div className="my-1" key={el.id}>
@@ -153,6 +157,12 @@ const App: NextPage = () => {
           >
             Dernières courses
           </div>
+          {isLoading && (
+            <div className={"text-white text-2xl font-poppins"}>Chargement...</div>
+          )}
+          {!isLoading && (!p || p.length === 0) && (
+            <div className={"text-white text-2xl font-poppins opacity-60"}>Aucune course enregistrée.</div>
+          )}
           {p?.map((el: any) => {
             return (
               <div className="my-1" key={el.id}>

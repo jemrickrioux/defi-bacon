@@ -21,9 +21,7 @@ const Home: NextPage = () => {
         timeZone:"America/Montreal"
     })
     const refresh = async () => {
-        await refetchAll();
-        await refetchDistance();
-
+        await Promise.all([refetchAll(), refetchDistance()]);
     }
 
     const percent = profileDistance && goalDistance ? profileDistance / goalDistance * 100: 0;

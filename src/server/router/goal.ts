@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export const goalRouter = createRouter()
     .mutation("update", {
-        input: z.number(),
+        input: z.number().positive("La distance doit être positive"),
         async resolve({input, ctx}) {
             return await ctx.prisma.goal.update(
                 {
