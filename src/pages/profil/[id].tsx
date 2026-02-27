@@ -3,8 +3,7 @@ import Head from "next/head";
 import { trpc } from "../../utils/trpc";
 import { useRouter } from 'next/router'
 import Link from "next/link";
-import {ChartBarIcon, HomeIcon, ArrowLeftIcon} from '@heroicons/react/solid'
-import {router} from "next/client";
+import {ArrowLeftIcon} from '@heroicons/react/solid'
 
 
 const Home: NextPage = () => {
@@ -49,7 +48,7 @@ const Home: NextPage = () => {
                             <div className="flex flex-row space-x-2 items-center md:py-6 py-4 md:px-14 px-6 justify-between bg-primary rounded-2xl shadow">
                                 <div className={"flex flex-col"}>
                                     <div className={"md:text-4xl text-2xl text-white font-poppins"}>{profile.name }</div>
-                                    <div className={"md:text-2xl text-lg text-dark text-dark mt-2"}>{formatter.format(el.date)}</div>
+                                    <div className={"md:text-2xl text-lg text-dark mt-2"}>{formatter.format(el.date)}</div>
                                 </div>
                                 <div className={"md:text-5xl text-xl text-white w-max flex md:self-center self-start"}>{el.distance}KM</div>
                             </div>
@@ -58,7 +57,7 @@ const Home: NextPage = () => {
                 <div className={"border-b-2 border-dark my-10"}></div>
                 <div className={"md:text-6xl text-4xl font-poppins"}>Tu aimerais <span className={"font-bold"}>faire ta part</span> ?</div>
                 <div className={"flex flex-row my-8 space-x-2 md:space-x-4"}>
-                    <div className={"w-max h-max hover:shadow py-4 px-4 rounded-lg cursor-pointer md:text-2xl text-sm  bg-primary text-white uppercase font-bold font-poppins"}><a target={"__blank__"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Faire un don</a></div>
+                    <div className={"w-max h-max hover:shadow py-4 px-4 rounded-lg cursor-pointer md:text-2xl text-sm  bg-primary text-white uppercase font-bold font-poppins"}><a target={"_blank"} rel={"noopener noreferrer"} href={"https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"}>Faire un don</a></div>
                     <div  className={"w-max h-max hover:shadow py-4 px-4 rounded-lg cursor-pointer md:text-2xl text-sm bg-dark text-white uppercase font-bold font-poppins"}><Link href={"/app"}>Faire un bout</Link></div>
                 </div>
 

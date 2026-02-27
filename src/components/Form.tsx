@@ -1,7 +1,6 @@
 import { trpc } from "../utils/trpc";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { name } from "next/dist/telemetry/ci-info";
 import { XIcon } from "@heroicons/react/solid";
 
 const Form = (props: any) => {
@@ -9,12 +8,13 @@ const Form = (props: any) => {
   const [nameValue, setNameValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { mutate, refresh, toggleModal } = props;
-  let result: any = {};
-  if (nameValue.length > 0) {
-    result = trpc.useQuery(["participants.search", nameValue]);
-  } else {
-    result = trpc.useQuery(["participants.getAll"]);
-  }
+  const searchResult = trpc.useQuery(["participants.search", nameValue], {
+    enabled: nameValue.length > 0,
+  });
+  const allResult = trpc.useQuery(["participants.getAll"], {
+    enabled: nameValue.length === 0,
+  });
+  const result = nameValue.length > 0 ? searchResult : allResult;
 
   const formatter = Intl.DateTimeFormat("fr-CA", {
     dateStyle: "long",
@@ -32,11 +32,11 @@ const Form = (props: any) => {
         e.target.date.value
       ) {
         const d = new Date(e.target.date.value);
-        console.log(d.setMinutes(d.getMinutes() + d.getTimezoneOffset()));
+        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
         await mutate({
           name: e.target.name.value,
           distance: parseFloat(e.target.distance.value),
-          date: new Date(d.setMinutes(d.getMinutes() + d.getTimezoneOffset())),
+          date: d,
         });
         e.target.date.value = "";
         e.target.name.value = "";

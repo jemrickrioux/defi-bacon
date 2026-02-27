@@ -37,7 +37,8 @@ function Header(props: { current: any }) {
             }
           >
             <a
-              target={"__blank__"}
+              target={"_blank"}
+              rel={"noopener noreferrer"}
               href={
                 "https://www.gofundme.com/f/gofundme-en-la-mmoire-de-mon-frre-maxime?qid=ebd1a3895ff5966bc933b363abac173c"
               }

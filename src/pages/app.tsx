@@ -35,7 +35,6 @@ const App: NextPage = () => {
     "participations.totalDistance",
   ]);
   const { data: goal } = trpc.useQuery(["goal.totalDistance"]);
-  let data = [] as any[];
   const refresh = async () => {
     await refetchAll();
     await refetchDistance();
@@ -169,7 +168,7 @@ const App: NextPage = () => {
                       </Link>
                     </div>
                     <div
-                      className={"md:text-2xl text-lg text-dark text-dark mt-2"}
+                      className={"md:text-2xl text-lg text-dark mt-2"}
                     >
                       {formatter.format(el.date)}
                     </div>

@@ -26,7 +26,6 @@ export const goalRouter = createRouter()
                     id: 1
                 }
             });
-            console.log(goal)
             return goal?.distance
         }
     })

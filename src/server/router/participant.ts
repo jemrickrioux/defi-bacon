@@ -70,7 +70,6 @@ export const participantsRouter = createRouter()
                 }
 
             });
-            console.log(total)
             return total._sum.distance
         }
     })

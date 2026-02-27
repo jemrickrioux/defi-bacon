@@ -4,7 +4,6 @@ import { trpc } from "../utils/trpc";
 import Form from "../components/Form";
 import ParticipantsList from "../components/ParticipantsList";
 import Link from "next/link";
-import { Button } from "react-query/types/devtools/styledComponents";
 
 const Admin: NextPage = () => {
   const utils = trpc.useContext();
@@ -33,8 +32,7 @@ const Admin: NextPage = () => {
     const refresh = await fetch(
       "https://defibacon.com/.netlify/functions/scraper"
     );
-    const data = await refresh.json();
-    console.log(data);
+    await refresh.json();
   };
 
   return (
