@@ -1,6 +1,6 @@
 import { trpc } from "../utils/trpc";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { XIcon } from "@heroicons/react/solid";
 
 const Form = (props: any) => {
@@ -10,6 +10,18 @@ const Form = (props: any) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const { mutate, refresh, toggleModal } = props;
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const today = new Date().toISOString().split("T")[0];
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   const searchResult = trpc.useQuery(["participants.search", nameValue], {
     enabled: nameValue.length > 0,
   });
@@ -89,24 +101,24 @@ const Form = (props: any) => {
             >
               Enregistrez une course
             </div>
-            <XIcon
-              onClick={toggleModal}
-              className={"w-10 ml-5 cursor-pointer self-center"}
-            />
+            <button onClick={toggleModal} aria-label="Fermer" type="button" className={"ml-5 self-center hover:opacity-70 transition-opacity"}>
+              <XIcon className={"w-10 cursor-pointer"} />
+            </button>
           </div>
 
           <div className={"ml-3 font-poppins"}>
-            <div className={"pt-4 max-w-sm"}>
+            <div className={"pt-4 max-w-sm"} ref={dropdownRef}>
               <div className={"text-2xl mb-1"}>Quel est votre nom?</div>
               <input
                 name={"name"}
                 value={nameValue}
                 onChange={handleChange}
                 type="text"
-                className={`py-2 px-6 my-2  text-2xl w-full ${
+                className={`py-2 px-6 my-2 text-2xl w-full ${
                   isOpen ? "rounded-t-lg" : "rounded-lg"
                 }`}
                 placeholder={"Nom de la personne"}
+                autoComplete="off"
               />
               {nameValue.length != 0 &&
                 result.data &&
@@ -117,9 +129,9 @@ const Form = (props: any) => {
                     <div
                       onClick={() => handleNewValue(el.name)}
                       key={el.id}
-                      className={`text-2xl py-2  ${
+                      className={`text-2xl py-2 cursor-pointer hover:bg-gray-100 ${
                         i == result.data.length - 1 ? "rounded-b-lg" : ""
-                      } px-6 my-2 bg-white -mt-2 w-full mb-2`}
+                      } px-6 -mt-2 w-full bg-white`}
                     >
                       {el.name}
                     </div>
@@ -132,11 +144,12 @@ const Form = (props: any) => {
               </div>
               <input
                 min={"0"}
+                max={"1000"}
                 name={"distance"}
-                step={"0.1"}
+                step={0.1}
                 type="number"
                 className={"py-2 px-6 my-2 rounded-lg text-2xl"}
-                placeholder={"Nombre"}
+                placeholder={"ex: 5.2"}
               />
             </div>
             <div className={"pt-4"}>
@@ -146,8 +159,8 @@ const Form = (props: any) => {
               <input
                 name={"date"}
                 type="date"
+                max={today}
                 className={"py-2 px-6 my-2 rounded-lg text-2xl mb-8"}
-                placeholder={"Nombre"}
               />
             </div>
           </div>
