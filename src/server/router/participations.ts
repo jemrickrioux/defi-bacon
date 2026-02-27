@@ -3,8 +3,8 @@ import { z } from "zod";
 
 
 const addParticipation =  z.object({
-    name: z.string(),
-    distance: z.number(),
+    name: z.string().trim().min(1, "Le nom est requis").max(100),
+    distance: z.number().positive("La distance doit être supérieure à 0").max(1000, "Distance trop grande"),
     date: z.date()
 })
 

@@ -14,7 +14,8 @@ export const participantsRouter = createRouter()
             return await ctx.prisma.participant.findMany({
                 where: {
                     name: {
-                        contains: input
+                        contains: input,
+                        mode: "insensitive"
                     }
                 }
             });
@@ -35,25 +36,28 @@ export const participantsRouter = createRouter()
     })
     .query("leaderboard", {
         async resolve({ctx}) {
-           const participation =  await ctx.prisma.participation.findMany({
-                include: {
-                    participant: true
+            const grouped = await ctx.prisma.participation.groupBy({
+                by: ["participantId"],
+                _sum: {
+                    distance: true,
                 },
                 orderBy: {
-                    distance: "desc"
-                }
+                    _sum: {
+                        distance: "desc",
+                    },
+                },
+                take: 10,
             });
-            let data = [] as any[];
-            participation.map((l:any)=> {
-                if (data[l.participant.id]) {
-                    data[l.participant.id].distance += l.distance;
-                } else {
-                    data[l.participant.id] = l
-                }
-        })
-            return Object.values(data).sort((a: any, b: any) => {
-                return b.distance - a.distance
-            })
+            const participantIds = grouped.map((g) => g.participantId);
+            const participants = await ctx.prisma.participant.findMany({
+                where: { id: { in: participantIds } },
+            });
+            const participantMap = new Map(participants.map((p) => [p.id, p]));
+            return grouped.map((g) => ({
+                id: g.participantId,
+                distance: g._sum.distance ?? 0,
+                participant: participantMap.get(g.participantId),
+            }));
     }})
     .query("totalDistance", {
         input: z.number(),
@@ -70,7 +74,6 @@ export const participantsRouter = createRouter()
                 }
 
             });
-            console.log(total)
             return total._sum.distance
         }
     })
